@@ -1,0 +1,28 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CoursesApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="android:colorBackground">@color/Dark</item>
+        <item name="android:statusBarColor">@color/Dark</item>
+        <item name="android:navigationBarColor">@color/DarkGray</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="colorPrimary">@color/Green</item>
+        <item name="colorSecondaryContainer">@color/LightGray</item>
+        <!-- To change the background of options menu-->
+        <item name="android:itemBackground">@color/DarkGray</item>
+    </style>
+
+    <style name="Theme.CoursesApp" parent="Base.Theme.CoursesApp" />
+
+    <style name="CornerCut" parent="">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+    </style>
+
+</resources>

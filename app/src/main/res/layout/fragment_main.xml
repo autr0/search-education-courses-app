@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/search_text"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/icon_corner_radius"
+                android:drawableStart="@drawable/search_icon"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:hint="@string/hint_search"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="16dp"
+                android:textColor="@color/White"
+                android:textColorHint="@color/WhiteDark" />
+
+            <ImageButton
+                android:id="@+id/filter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/icon_corner_radius"
+                android:contentDescription="@string/filter_by_category"
+                android:padding="16dp"
+                android:src="@drawable/filter_icon" />
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:id="@+id/sorting_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:drawableRight="@drawable/sorting_arrows_icon"
+            android:drawablePadding="8dp"
+            android:gravity="end"
+            android:padding="10dp"
+            android:text="@string/sorting_by_date"
+            android:textColor="@color/Green"
+            app:drawableTint="@color/Green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myToolbar" />
+
+
+        <FrameLayout
+            android:id="@+id/recycler_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="71.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sorting_day"
+            app:layout_constraintVertical_bias="0.0" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/main_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

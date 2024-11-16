@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Fragment container for navigation -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_nav_host"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@+id/bar_top_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <View
+        android:id="@+id/bar_top_border"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@color/Stroke"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view" />
+
+    <!-- Bottom Navigation Bar -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/DarkGray"
+        app:itemIconTint="@color/bottom_tabs_color"
+        app:itemTextColor="@color/bottom_tabs_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/account_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Toolbar
+            android:id="@+id/account_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/account_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/account_header"
+                android:textColor="@color/White"
+                android:textSize="22sp" />
+
+        </Toolbar>
+
+        <LinearLayout
+            android:id="@+id/settings_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/account_card_shape"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/account_toolbar">
+
+            <TextView
+                android:id="@+id/support_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingVertical="6dp"
+                android:text="@string/support_row"
+                android:textSize="16sp"
+                app:drawableRightCompat="@drawable/arrow_head_right_icon"
+                app:drawableTint="@color/White" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/Stroke" />
+
+            <TextView
+                android:id="@+id/settings_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingVertical="6dp"
+                android:text="@string/settings_row"
+                android:textSize="16sp"
+                app:drawableRightCompat="@drawable/arrow_head_right_icon" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/Stroke" />
+
+            <TextView
+                android:id="@+id/exit_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:paddingVertical="6dp"
+                android:text="@string/exit_row"
+                android:textColor="@color/White"
+                android:textSize="16sp"
+                app:drawableRightCompat="@drawable/arrow_head_right_icon" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/your_courses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="@string/your_courses"
+            android:textColor="@color/White"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_card" />
+
+        <FrameLayout
+            android:id="@+id/recycler_acc_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="71.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/your_courses">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favourites_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

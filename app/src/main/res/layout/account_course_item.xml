@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:paddingTop="40dp"
+        app:cardBackgroundColor="@color/DarkGray"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/course_image"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/Green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:shapeAppearance="@style/CornerCut" />
+
+            <ImageView
+                android:id="@+id/favourites_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/icon_corner_radius_light"
+                android:contentDescription="@string/favourites"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/favourites_tab" />
+
+            <TextView
+                android:id="@+id/course_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="108dp"
+                android:background="@drawable/icon_corner_radius_light"
+                android:drawableLeft="@drawable/star_icon"
+                android:drawablePadding="5dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="4.9"
+                android:textColor="@color/White"
+                app:drawableTint="@color/Green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/course_date"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="108dp"
+                android:background="@drawable/icon_corner_radius_light"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="22 мая 2024"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.06"
+                app:layout_constraintStart_toEndOf="@+id/course_rating"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/course_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="148dp"
+                android:fontFamily="@font/roboto_medium"
+                android:maxLines="1"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:text="Название курса"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/percentage_completed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:text="50%"
+                android:textColor="@color/Green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/course_header" />
+
+            <TextView
+                android:id="@+id/lessons_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_color_stat"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/percentage_completed"
+                app:layout_constraintTop_toBottomOf="@+id/course_header" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="16dp"
+                android:progress="50"
+                app:indicatorColor="@color/Green"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/percentage_completed"
+                app:trackStopIndicatorSize="25dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

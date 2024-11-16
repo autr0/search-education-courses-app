@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/filter_category"
+        android:title="@string/filter_by_category"/>
+    <item
+        android:id="@+id/filter_difficulty"
+        android:title="@string/filter_by_difficulty"/>
+    <item
+        android:id="@+id/filter_price"
+        android:title="@string/filter_by_price"/>
+
+</menu>

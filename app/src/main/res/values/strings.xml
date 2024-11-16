@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">CoursesApp</string>
+    
+<!-- Bottom nav names -->
+    <string name="main">Главная</string>
+    <string name="favourites">Избранное</string>
+    <string name="account">Аккаунт</string>
+
+<!-- Main screen -->
+    <string name="hint_search">Search courses…</string>
+    <string name="sorting_by_date">По дате добавления</string>
+    <string name="sorting_by_popularity">По популярности</string>
+    <string name="sorting_by_rating">По рейтингу</string>
+
+    <string name="filter_by_category">Фильтр по категории</string>
+    <string name="filter_by_difficulty">Фильтр по сложности</string>
+    <string name="filter_by_price">Фильтр по цене</string>
+
+    <string name="more">Подробнее</string>
+
+<!-- Favourites Screen -->
+    <string name="favourites_title">Избранное</string>
+    <string name="author">Автор</string>
+    <string name="start_course">Начать курс</string>
+    <string name="open_platform">Перейти на платформу</string>
+    <string name="about_course">О курсе</string>
+
+<!-- Test Strings -->
+    <string name="long_test_string">Проверка текста с   несколькими абзацами here is still first paragraph\n\nБудет лb jy jnn,hf,fnm ye kflyj yfgbitv tot rexe dczrjq dczxbys? xnj,s ,skj xnj gjntncnbnm? xnj, ltqcndbntkmyj juhjvysq ntrcn? f yt f,s xnj b rfr dct rjhhtrnyj?F djn nen tot ds cvj;tnt cnfnm pdtpljq y,f b djj,ot dct rkfccyj\n\nAnd now this is the end of the test text adios amigos chao! \n\n The End.</string>
+    <string name="test_color_stat"><font color='#12B956'>22</font>/44 уроков</string>
+
+    <string name="lessons">уроков</string>
+    <string name="account_header">Профиль</string>
+    <string name="support_row">Написать в поддержку</string>
+    <string name="settings_row">Настройки</string>
+    <string name="exit_row">Выйти из аккаунта</string>
+    <string name="your_courses">Ваши курсы</string>
+
+</resources>
