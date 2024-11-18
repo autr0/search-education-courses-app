@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     // kapt plugin
-    // alias(libs.plugins.jetbrains.kotlin.kapt)
+     alias(libs.plugins.jetbrains.kotlin.kapt)
     // ksp
     alias(libs.plugins.kotlin.ksp)
     // serialization
@@ -62,12 +62,12 @@ dependencies {
 
     // Dagger2
     implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
-//    kapt(libs.dagger.compiler)
+    kapt(libs.dagger.compiler)
 
     // Room
     implementation(libs.room)
     ksp(libs.room.compiler)
+    implementation(libs.room.paging)
     implementation(libs.room.support)
 
     // Serialization
@@ -80,13 +80,12 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
     implementation(libs.okhttp3)
+    implementation(libs.logging.interceptor)
 
     // Coroutines
     implementation(libs.coroutines.android)
     implementation(libs.coroutines.core)
 
-    // Adapter Delegates
-    implementation(libs.adapter.delegate)
-    implementation(libs.adapter.delegate.viewBinding)
-
+    // Paging
+    implementation(libs.paging.runtime)
 }

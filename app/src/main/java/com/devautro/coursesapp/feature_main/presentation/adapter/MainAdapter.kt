@@ -3,35 +3,60 @@ package com.devautro.coursesapp.feature_main.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.paging.AsyncPagingDataDiffer
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.devautro.coursesapp.R
 import com.devautro.coursesapp.databinding.MainCourseItemBinding
+import com.devautro.coursesapp.feature_main.domain.model.Course
 import com.devautro.coursesapp.feature_main.presentation.model.CourseCard
+import kotlinx.coroutines.Dispatchers
 
 class MainAdapter(
     private val courseCardActionListener: CourseCardActionListener
 ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>(), View.OnClickListener {
 
-    private val differCallback = object : DiffUtil.ItemCallback<CourseCard>() {
-        override fun areItemsTheSame(oldItem: CourseCard, newItem: CourseCard): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Course>() {
+        override fun areItemsTheSame(oldItem: Course, newItem: Course): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: CourseCard, newItem: CourseCard): Boolean {
+        override fun areContentsTheSame(oldItem: Course, newItem: Course): Boolean {
             return oldItem == newItem
         }
 
     }
 
-    private val differ = AsyncListDiffer(this, differCallback)
+    private val differ = AsyncPagingDataDiffer(
+        diffCallback = differCallback,
+        updateCallback = object : ListUpdateCallback {
+            override fun onInserted(position: Int, count: Int) {
+                notifyItemRangeInserted(position, count)
+            }
+
+            override fun onRemoved(position: Int, count: Int) {
+                notifyItemRangeRemoved(position, count)
+            }
+
+            override fun onMoved(fromPosition: Int, toPosition: Int) {
+                notifyItemMoved(fromPosition, toPosition)
+            }
+
+            override fun onChanged(position: Int, count: Int, payload: Any?) {
+                notifyItemRangeChanged(position, count)
+            }
+
+        },
+        mainDispatcher = Dispatchers.Main,
+        workerDispatcher = Dispatchers.Default
+    )
 
     // add new items via this method
-    fun submitList(list: List<CourseCard>) {
-        differ.submitList(list)
+    suspend fun submitList(list: PagingData<Course>) {
+        differ.submitData(list)
     }
 
     inner class MainViewHolder(val binding: MainCourseItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -47,37 +72,38 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        val courseCard = differ.currentList[position]
-        val favouriteIcon = if (courseCard.isFavourite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
-//        val favouriteColor = if (courseCard.isFavourite) R.color.Green else R.color.White
-//        val context = holder.itemView.context //-> for Glide later
+        val course = differ.getItem(position)
 
-        with(holder.binding) {
-            favouritesButton.tag = courseCard
-            courseMore.tag = courseCard
+        course?.let {
+            val favouriteIcon =
+                if (course.isFavorite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
+            with(holder.binding) {
+                favouritesButton.tag = course
+                courseMore.tag = course
 
-            courseHeader.text = courseCard.title
-            courseBody.text = courseCard.description
-            courseDate.text = courseCard.date
-            courseRating.text = courseCard.rating
-            coursePrice.text = courseCard.price
-            favouritesButton.setImageResource(favouriteIcon)
-            if (courseCard.image.isNotBlank()) {
-                Glide.with(courseImage.context)
-                    .load(courseCard.image)
-                    .circleCrop()
-                    .placeholder(R.drawable.search_icon) // define placeholder for zero data!!
-                    .error(R.drawable.search_icon)
-                    .into(courseImage)
-            } else {
-                 Glide.with(courseImage.context)
+                courseHeader.text = course.title
+                courseBody.text = course.description
+                courseDate.text = course.updateDate
+                courseRating.text = "?"
+                coursePrice.text = course.price
+                favouritesButton.setImageResource(favouriteIcon)
+                if (!course.cover.isNullOrBlank()) {
+                    Glide.with(courseImage.context)
+                        .load(course.cover)
+                        .circleCrop()
+                        .placeholder(R.drawable.search_icon) // define placeholder for zero data!!
+                        .error(R.drawable.search_icon)
+                        .into(courseImage)
+                } else {
+                    Glide.with(courseImage.context)
                         .load(R.drawable.search_icon)
                         .into(courseImage)
+                }
             }
         }
     }
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemCount(): Int = differ.itemCount
 
     override fun onClick(view: View?) {
         val courseCard = view?.tag as CourseCard

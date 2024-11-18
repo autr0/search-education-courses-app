@@ -7,25 +7,43 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.devautro.coursesapp.CourseApp
 import com.devautro.coursesapp.R
 import com.devautro.coursesapp.databinding.FragmentMainBinding
 import com.devautro.coursesapp.feature_main.presentation.adapter.CourseCardActionListener
 import com.devautro.coursesapp.feature_main.presentation.adapter.MainAdapter
 import com.devautro.coursesapp.feature_main.presentation.model.CourseCard
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var binding: FragmentMainBinding
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MainAdapter
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: MainViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Выполняем инъекцию зависимостей
+        (requireActivity().application as CourseApp).appComponent.inject(this)
+
+        // Инициализируем ViewModel
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMainBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -61,35 +79,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }
 
         })
-        adapter.submitList(
-            listOf(
-                CourseCard(
-                    id = 0L,
-                    title = "Java course for Beginners",
-                    description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
-                    price = "1 200 $"
-                ),
-                CourseCard(
-                    id = 1L,
-                    title = "Kotlin course for Beginners",
-                    isFavourite = true,
-                    description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
-                    price = "999 $"
-                ),
-                CourseCard(
-                    id = 2L,
-                    title = "Java course for Beginners",
-                    description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
-                    price = "1 200 $"
-                ),
-                CourseCard(
-                    id = 3L,
-                    title = "Kotlin course for Beginners",
-                    description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
-                    price = "999 $"
-                )
-            )
-        )
+        lifecycleScope.launch {
+            viewModel.coursePagingFlow.collectLatest { pagingData ->
+                adapter.submitList(pagingData)
+            }
+        }
         recyclerView.adapter = adapter
     }
 

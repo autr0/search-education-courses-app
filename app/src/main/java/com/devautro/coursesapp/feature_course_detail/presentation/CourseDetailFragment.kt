@@ -1,4 +1,4 @@
-package com.devautro.coursesapp.core.presentation
+package com.devautro.coursesapp.feature_course_detail.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater

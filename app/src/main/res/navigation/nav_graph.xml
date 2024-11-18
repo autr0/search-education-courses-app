@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_account"/>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.devautro.coursesapp.core.presentation.CourseDetailFragment"
+        android:name="com.devautro.coursesapp.feature_course_detail.presentation.CourseDetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_course_detail"/>
 
