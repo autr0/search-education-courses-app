@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import androidx.paging.map
 import com.devautro.coursesapp.feature_main.data.local.CourseEntity
 import com.devautro.coursesapp.feature_main.data.mappers.toCourse
@@ -17,7 +18,9 @@ class MainViewModel @Inject constructor(
     val coursePagingFlow = pager
         .flow
         .map { pagingData ->
-            pagingData.map { it.toCourse() }
+            pagingData
+                .filter { it.title != "empty" }
+                .map { it.toCourse() }
         }
         .cachedIn(viewModelScope)
 }

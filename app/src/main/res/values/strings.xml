@@ -36,4 +36,6 @@
     <string name="exit_row">Выйти из аккаунта</string>
     <string name="your_courses">Ваши курсы</string>
 
+    <string name="retry">Повторить</string>
+
 </resources>

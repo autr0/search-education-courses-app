@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.devautro.coursesapp.R
 import com.devautro.coursesapp.databinding.MainCourseItemBinding
+import com.devautro.coursesapp.feature_main.domain.model.Course
 import com.devautro.coursesapp.feature_main.presentation.adapter.CourseCardActionListener
-import com.devautro.coursesapp.feature_main.presentation.model.CourseCard
 
 class FavouritesAdapter(
     private val courseCardActionListener: CourseCardActionListener
 ) : RecyclerView.Adapter<FavouritesAdapter.FavouritesViewHolder>(), View.OnClickListener {
 
-    private val differCallback = object : DiffUtil.ItemCallback<CourseCard>() {
-        override fun areItemsTheSame(oldItem: CourseCard, newItem: CourseCard): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Course>() {
+        override fun areItemsTheSame(oldItem: Course, newItem: Course): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: CourseCard, newItem: CourseCard): Boolean {
+        override fun areContentsTheSame(oldItem: Course, newItem: Course): Boolean {
             return oldItem == newItem
         }
 
@@ -29,7 +29,7 @@ class FavouritesAdapter(
 
     private val differ = AsyncListDiffer(this, differCallback)
 
-    fun submitList(list: List<CourseCard>) { differ.submitList(list) } // add new items via this method
+    fun submitList(list: List<Course>) { differ.submitList(list) } // add new items via this method
 
     inner class FavouritesViewHolder(val binding: MainCourseItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -46,25 +46,25 @@ class FavouritesAdapter(
     override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: FavouritesViewHolder, position: Int) {
-        val courseCard = differ.currentList[position]
-        val favouriteIcon = if (courseCard.isFavourite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
+        val course = differ.currentList[position]
+        val favouriteIcon = if (course.isFavorite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
 
         with(holder.binding) {
-            favouritesButton.tag = courseCard
-            courseMore.tag = courseCard
+            favouritesButton.tag = course
+            courseMore.tag = course
 
-            courseHeader.text = courseCard.title
-            courseBody.text = courseCard.description
-            courseDate.text = courseCard.date
-            courseRating.text = courseCard.rating
-            coursePrice.text = courseCard.price
+            courseHeader.text = course.title
+            courseBody.text = course.description
+            courseDate.text = course.updateDate
+            courseRating.text = "?"
+            coursePrice.text = course.price
             favouritesButton.setImageResource(favouriteIcon)
 
 //          MAYBE DIFFERENT IMAGE LOAD -> FIND OUT HOW TO CACHE IT !!! -->
-            if (courseCard.image.isNotBlank()) {
+            if (!course.cover.isNullOrBlank()) {
                 Glide.with(courseImage.context)
-                    .load(courseCard.image)
-                    .circleCrop()
+                    .load(course.cover)
+                    .centerCrop()
                     .placeholder(R.drawable.search_icon) // define placeholder for zero data!!
                     .error(R.drawable.search_icon)
                     .into(courseImage)
@@ -78,7 +78,7 @@ class FavouritesAdapter(
     }
 
     override fun onClick(view: View?) {
-        val courseCard = view?.tag as CourseCard
+        val courseCard = view?.tag as Course
 
         when(view.id) {
             R.id.course_more -> courseCardActionListener.onDetailCLicked(courseCard)

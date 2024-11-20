@@ -5,6 +5,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
+import com.devautro.coursesapp.feature_course_detail.data.repository.CourseDetailRepositoryImpl
+import com.devautro.coursesapp.feature_course_detail.domain.repository.CourseDetailRepository
 import com.devautro.coursesapp.feature_main.data.local.CourseDatabase
 import com.devautro.coursesapp.feature_main.data.local.CourseEntity
 import com.devautro.coursesapp.feature_main.data.remote.CourseRemoteMediator
@@ -39,5 +41,11 @@ class AppModule {
             ),
             pagingSourceFactory = { db.dao.pagingSource() }
         )
+    }
+
+    @Singleton
+    @Provides
+    fun providesCourseDetailRepository(db: CourseDatabase): CourseDetailRepository {
+        return CourseDetailRepositoryImpl(db.dao)
     }
 }

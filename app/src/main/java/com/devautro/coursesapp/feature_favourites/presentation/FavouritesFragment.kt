@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devautro.coursesapp.R
 import com.devautro.coursesapp.databinding.FragmentFavouritesBinding
 import com.devautro.coursesapp.feature_favourites.presentation.adapter.FavouritesAdapter
+import com.devautro.coursesapp.feature_main.domain.model.Course
 import com.devautro.coursesapp.feature_main.presentation.adapter.CourseCardActionListener
 import com.devautro.coursesapp.feature_main.presentation.model.CourseCard
 
@@ -36,47 +37,31 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = FavouritesAdapter(object : CourseCardActionListener {
-            override fun onDetailCLicked(courseCard: CourseCard) {
+            override fun onDetailCLicked(course: Course) {
                 navigateToDetail()
 //                Toast.makeText(context, "Navigate to detail screen", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onFavouriteClicked(courseCard: CourseCard) {
+            override fun onFavouriteClicked(course: Course) {
                 Toast.makeText(context, "Favourite changed", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onCourseCardGetId(courseCard: CourseCard) {
-                Toast.makeText(context, courseCard.title, Toast.LENGTH_SHORT).show()
+            override fun onCourseCardGetId(course: Course) {
+                Toast.makeText(context, course.title, Toast.LENGTH_SHORT).show()
             }
 
         })
         adapter.submitList(
             listOf(
-                CourseCard(
+                Course(
                     id = 0L,
                     title = "Java course for Beginners",
-                    isFavourite = true,
                     description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
                     price = "1 200 $"
                 ),
-                CourseCard(
+                Course(
                     id = 1L,
                     title = "Kotlin course for Beginners",
-                    isFavourite = true,
-                    description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
-                    price = "999 $"
-                ),
-                CourseCard(
-                    id = 2L,
-                    title = "Java course for Beginners",
-                    isFavourite = true,
-                    description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
-                    price = "1 200 $"
-                ),
-                CourseCard(
-                    id = 3L,
-                    title = "Kotlin course for Beginners",
-                    isFavourite = true,
                     description = "This course is suitable for those people who know computer science basica and wouls like to improve their skills",
                     price = "999 $"
                 )

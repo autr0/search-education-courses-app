@@ -9,21 +9,33 @@
         android:id="@+id/mainFragment"
         android:name="com.devautro.coursesapp.feature_main.presentation.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.devautro.coursesapp.feature_favourites.presentation.FavouritesFragment"
         android:label="FavouritesFragment"
-        tools:layout="@layout/fragment_favourites"/>
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.devautro.coursesapp.feature_account.presentation.AccountFragment"
         android:label="AccountFragment"
-        tools:layout="@layout/fragment_account"/>
+        tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.devautro.coursesapp.feature_course_detail.presentation.CourseDetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_course_detail"/>
+        tools:layout="@layout/fragment_course_detail">
+        <argument
+            android:name="longValue"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

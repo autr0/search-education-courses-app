@@ -15,9 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.devautro.coursesapp.CourseApp
 import com.devautro.coursesapp.R
 import com.devautro.coursesapp.databinding.FragmentMainBinding
+import com.devautro.coursesapp.feature_main.domain.model.Course
 import com.devautro.coursesapp.feature_main.presentation.adapter.CourseCardActionListener
 import com.devautro.coursesapp.feature_main.presentation.adapter.MainAdapter
-import com.devautro.coursesapp.feature_main.presentation.model.CourseCard
+import com.devautro.coursesapp.feature_main.presentation.adapter.MainLoadStateAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -32,10 +33,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Выполняем инъекцию зависимостей
         (requireActivity().application as CourseApp).appComponent.inject(this)
-
-        // Инициализируем ViewModel
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
@@ -65,29 +63,32 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = MainAdapter(object : CourseCardActionListener {
-            override fun onDetailCLicked(courseCard: CourseCard) {
-                navigateToDetail()
+            override fun onDetailCLicked(course: Course) {
+                navigateToDetail(courseId = course.id)
 //                Toast.makeText(context, "Navigate to detail screen", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onFavouriteClicked(courseCard: CourseCard) {
+            override fun onFavouriteClicked(course: Course) {
                 Toast.makeText(context, "Favourite changed", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onCourseCardGetId(courseCard: CourseCard) {
-                Toast.makeText(context, courseCard.title, Toast.LENGTH_SHORT).show()
+            override fun onCourseCardGetId(course: Course) {
+                Toast.makeText(context, course.title, Toast.LENGTH_SHORT).show()
             }
 
         })
+        recyclerView.adapter = adapter.withLoadStateFooter(
+            footer = MainLoadStateAdapter({}) // do it later
+        )
         lifecycleScope.launch {
             viewModel.coursePagingFlow.collectLatest { pagingData ->
-                adapter.submitList(pagingData)
+                adapter.submitData(pagingData)
             }
         }
-        recyclerView.adapter = adapter
     }
 
-    private fun navigateToDetail() {
-        findNavController().navigate(R.id.detailFragment)
+    private fun navigateToDetail(courseId: Long) {
+        val action = MainFragmentDirections.actionMainFragmentToDetailFragment(longValue = courseId)
+        findNavController().navigate(action)
     }
 }

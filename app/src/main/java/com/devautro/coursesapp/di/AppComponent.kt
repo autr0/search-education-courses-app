@@ -1,6 +1,7 @@
 package com.devautro.coursesapp.di
 
 import android.content.Context
+import com.devautro.coursesapp.feature_course_detail.presentation.CourseDetailFragment
 import com.devautro.coursesapp.feature_main.presentation.MainFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -11,6 +12,7 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun inject(fragment: MainFragment)
+    fun injectDetail(fragment: CourseDetailFragment)
 
     @Component.Factory
     interface Factory {

@@ -7,6 +7,8 @@ plugins {
     alias(libs.plugins.kotlin.ksp)
     // serialization
     alias(libs.plugins.kotlin.serialization)
+    // type-safe args
+    alias(libs.plugins.navigation.safeArgs)
 }
 
 android {

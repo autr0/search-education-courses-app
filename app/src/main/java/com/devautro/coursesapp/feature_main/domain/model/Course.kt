@@ -14,7 +14,9 @@ data class Course(
     val beginDate: String? = null,
     val updateDate: String? = null,
     val continueUrl: String? = null,
-    val authors: Long? = null,
-    val reviewSummary: Long = 0,
+    val authorId: Long? = null,
+    val authorName: String? = null,
+    val authorImage: String? = null,
+    val reviewSummary: String? = null,
     val price: String? = null
 )

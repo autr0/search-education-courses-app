@@ -6,4 +6,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.kapt) apply false
     // ksp
     alias(libs.plugins.kotlin.ksp) apply false
+    // safeArgs
+    alias(libs.plugins.navigation.safeArgs) apply false
 }

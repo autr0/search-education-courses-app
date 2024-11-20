@@ -16,4 +16,10 @@ interface CourseDao {
 
     @Query("DELETE FROM course_table WHERE isFavorite = 0") // because we need to display favourites in the certsin screen
     suspend fun clearAllBesideFavourites()
+
+    @Query("SELECT * FROM course_table WHERE courseId = :courseId")
+    suspend fun getCourseById(courseId: Long): CourseEntity
+
+    @Query("DELETE FROM course_table")
+    suspend fun clearAll()
 }
