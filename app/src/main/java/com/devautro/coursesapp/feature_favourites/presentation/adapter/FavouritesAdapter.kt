@@ -47,25 +47,24 @@ class FavouritesAdapter(
 
     override fun onBindViewHolder(holder: FavouritesViewHolder, position: Int) {
         val course = differ.currentList[position]
-        val favouriteIcon = if (course.isFavorite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
+        val favouriteIcon = if (course.isFavourite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
 
         with(holder.binding) {
             favouritesButton.tag = course
             courseMore.tag = course
 
             courseHeader.text = course.title
-            courseBody.text = course.description
+            courseBody.text = course.summary
             courseDate.text = course.updateDate
-            courseRating.text = "?"
+            courseRating.text = course.reviewSummary
             coursePrice.text = course.price
             favouritesButton.setImageResource(favouriteIcon)
 
-//          MAYBE DIFFERENT IMAGE LOAD -> FIND OUT HOW TO CACHE IT !!! -->
             if (!course.cover.isNullOrBlank()) {
                 Glide.with(courseImage.context)
                     .load(course.cover)
                     .centerCrop()
-                    .placeholder(R.drawable.search_icon) // define placeholder for zero data!!
+                    .placeholder(R.drawable.search_icon)
                     .error(R.drawable.search_icon)
                     .into(courseImage)
             } else {

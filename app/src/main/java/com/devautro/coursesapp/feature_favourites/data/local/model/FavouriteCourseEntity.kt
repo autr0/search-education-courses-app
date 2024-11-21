@@ -1,13 +1,12 @@
-package com.devautro.coursesapp.feature_main.data.local
+package com.devautro.coursesapp.feature_favourites.data.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "course_table")
-data class CourseEntity(
-    @PrimaryKey(autoGenerate = true)
-    val tableId: Long? = null, // local id in db
-    val courseId: Long = 0, // courseId
+@Entity(tableName = "favourite_courses")
+data class FavouriteCourseEntity(
+    @PrimaryKey
+    val courseId: Long,
     val title: String? = null,
     val description: String? = null,
     val cover: String? = null,

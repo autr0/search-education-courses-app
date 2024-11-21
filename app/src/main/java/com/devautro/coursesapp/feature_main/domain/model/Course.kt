@@ -9,7 +9,7 @@ data class Course(
     val language: String? = null,
     val courseType: String? = null,
     val difficulty: String? = null,
-    val isFavorite: Boolean = false,
+    val isFavourite: Boolean = false,
     val isPopular: Boolean = false,
     val beginDate: String? = null,
     val updateDate: String? = null,

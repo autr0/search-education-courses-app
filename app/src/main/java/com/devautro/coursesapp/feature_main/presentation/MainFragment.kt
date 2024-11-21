@@ -59,17 +59,30 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             }.show()
         }
 
+        binding.sortingDay.setOnClickListener {
+            when (binding.sortingDay.text) {
+                this.getString(R.string.sorting_by_date) -> {
+                    binding.sortingDay.text = this.getString(R.string.sorting_by_rating)
+                }
+                this.getString(R.string.sorting_by_rating) -> {
+                    binding.sortingDay.text = this.getString(R.string.sorting_by_date)
+                }
+                else -> {}
+            }
+        }
+
         recyclerView = binding.mainRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = MainAdapter(object : CourseCardActionListener {
             override fun onDetailCLicked(course: Course) {
                 navigateToDetail(courseId = course.id)
-//                Toast.makeText(context, "Navigate to detail screen", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFavouriteClicked(course: Course) {
-                Toast.makeText(context, "Favourite changed", Toast.LENGTH_SHORT).show()
+                viewModel.updateIsFavouriteById(course = course, newIsFavorite = !course.isFavourite)
+                val toastText = if (course.isFavourite) "Убираем из избранного..." else "Добавляем в избранное..."
+                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
             }
 
             override fun onCourseCardGetId(course: Course) {
@@ -81,8 +94,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             footer = MainLoadStateAdapter({}) // do it later
         )
         lifecycleScope.launch {
-            viewModel.coursePagingFlow.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
+            viewModel.coursePagingFlow.collectLatest { uiState ->
+                adapter.submitData(uiState.pagingData)
             }
         }
     }

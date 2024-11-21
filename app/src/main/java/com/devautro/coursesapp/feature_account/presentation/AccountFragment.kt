@@ -10,13 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.devautro.coursesapp.R
 import com.devautro.coursesapp.databinding.FragmentAccountBinding
-import com.devautro.coursesapp.databinding.FragmentFavouritesBinding
 import com.devautro.coursesapp.feature_account.presentation.adapter.AccountAdapter
 import com.devautro.coursesapp.feature_account.presentation.adapter.AccountCardActionListener
 import com.devautro.coursesapp.feature_account.presentation.model.AccountCourseCard
-import com.devautro.coursesapp.feature_favourites.presentation.adapter.FavouritesAdapter
-import com.devautro.coursesapp.feature_main.presentation.adapter.CourseCardActionListener
-import com.devautro.coursesapp.feature_main.presentation.model.CourseCard
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
     private lateinit var binding: FragmentAccountBinding
@@ -27,7 +23,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAccountBinding.inflate(layoutInflater, container, false)
         return binding.root
     }

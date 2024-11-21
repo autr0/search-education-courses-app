@@ -48,7 +48,6 @@ class CourseRemoteMediator(
                 }
             }
             val (meta, courses) = api.getCourses(page = page, perPage = 10)
-
             val prevKey = if (meta.hasPrevious) meta.page - 1 else null
             val nextKey = if (meta.hasNext) meta.page + 1 else null
 
@@ -56,7 +55,6 @@ class CourseRemoteMediator(
 
             db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-//                    db.dao.clearAllBesideFavourites()
                     db.keysDao.clearRemoteKeys()
                     db.dao.clearAll()
                 }
@@ -73,7 +71,6 @@ class CourseRemoteMediator(
                         nextKey = nextKey
                     )
                 }
-
                 db.keysDao.insertAll(keys)
                 db.dao.upsertAll(courseEntities)
             }
@@ -89,8 +86,13 @@ class CourseRemoteMediator(
     }
 
     private suspend fun mapCoursesToCoursesWithRating(
-        courses: List<CourseDto>
+        coursesDto: List<CourseDto>
     ): List<CourseEntity> {
+        val favouriteCoursesIds = db.favouritesDao.getAllFavouriteCourseIds() // to prevent duplicates showing
+        val courses = coursesDto.map { courseDto ->
+            if (courseDto.id in favouriteCoursesIds) courseDto.copy(isFavourite = true) else courseDto
+        }
+
         val courseReviewIds = courses.map { it.reviewSummary }
         val (_, ratingList) = api.getCourseSummaryById(courseReviewIds)
 
@@ -111,21 +113,15 @@ class CourseRemoteMediator(
     }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, CourseEntity>): RemoteKeys? {
-        // Get the last page that was retrieved, that contained items.
-        // From that last page, get the last item
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { courseEntity ->
-                // Get the remote keys of the last item retrieved
                 db.keysDao.remoteKeysCourseId(courseEntity.courseId)
             }
     }
 
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, CourseEntity>): RemoteKeys? {
-        // Get the first page that was retrieved, that contained items.
-        // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { courseEntity ->
-                // Get the remote keys of the first items retrieved
                 db.keysDao.remoteKeysCourseId(courseEntity.courseId)
 
             }
@@ -134,8 +130,6 @@ class CourseRemoteMediator(
     private suspend fun getRemoteKeyClosestToCurrentPosition(
         state: PagingState<Int, CourseEntity>
     ): RemoteKeys? {
-        // The paging library is trying to load data after the anchor position
-        // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.courseId?.let { courseId ->
                 db.keysDao.remoteKeysCourseId(courseId)

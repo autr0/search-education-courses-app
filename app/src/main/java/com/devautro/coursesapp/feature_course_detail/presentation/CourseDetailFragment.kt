@@ -50,6 +50,7 @@ class CourseDetailFragment : Fragment(R.layout.fragment_course_detail) {
 
         setUpData()
 
+
         binding.detailBackButton.setOnClickListener {
             navigateBack()
         }
@@ -59,7 +60,10 @@ class CourseDetailFragment : Fragment(R.layout.fragment_course_detail) {
         lifecycleScope.launch {
             viewModel.courseInfo.collectLatest { course ->
                 with(binding) {
-                    val favouriteIcon = if (course.isFavorite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
+                    detailFavouritesButton.setOnClickListener {
+                        viewModel.updateFavouriteCourse(course = course, newIsFavourite = !course.isFavourite)
+                    }
+                    val favouriteIcon = if (course.isFavourite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
                     detailCourseDate.text = course.updateDate
                     detailCourseHeader.text = course.title
                     courseDescription.text = course.summary

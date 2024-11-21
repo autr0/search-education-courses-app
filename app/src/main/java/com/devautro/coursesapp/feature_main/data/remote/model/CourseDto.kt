@@ -20,7 +20,7 @@ data class CourseDto(
     @SerializedName("difficulty")
     val difficulty: String? = null,  // need it for filtering?
     @SerializedName("is_favorite")
-    val isFavorite: Boolean = false,               // need it!
+    val isFavourite: Boolean = false,               // need it!
     @SerializedName("is_popular")
     val isPopular: Boolean = false,                // need it!
     @SerializedName("begin_date")

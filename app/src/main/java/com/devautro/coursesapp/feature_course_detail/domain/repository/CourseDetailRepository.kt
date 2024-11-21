@@ -4,6 +4,8 @@ import com.devautro.coursesapp.feature_main.domain.model.Course
 
 interface CourseDetailRepository {
 
-    suspend fun getCourseById(id: Long): Course
+    suspend fun getCourseById(id: Long): Course?
+
+    suspend fun updateCourseIsFavourite(course: Course, newIsFavourite: Boolean)
 
 }

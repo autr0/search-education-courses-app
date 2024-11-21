@@ -1,4 +1,4 @@
-package com.devautro.coursesapp.feature_main.data.mappers
+package com.devautro.coursesapp.feature_favourites.data.mappers
 
 import com.devautro.coursesapp.core.util.formatDate
 import com.devautro.coursesapp.core.util.formatPrice
@@ -6,15 +6,13 @@ import com.devautro.coursesapp.core.util.formatRating
 import com.devautro.coursesapp.core.util.reFormatDate
 import com.devautro.coursesapp.core.util.reFormatPrice
 import com.devautro.coursesapp.core.util.reFormatRating
-import com.devautro.coursesapp.core.util.roundRating
+import com.devautro.coursesapp.feature_favourites.data.local.model.FavouriteCourseEntity
 import com.devautro.coursesapp.feature_main.data.local.CourseEntity
-import com.devautro.coursesapp.feature_main.data.remote.model.CourseDto
-import com.devautro.coursesapp.feature_main.data.remote.model.course_author.Author
 import com.devautro.coursesapp.feature_main.domain.model.Course
 
-fun CourseDto.toCourseEntity(rating: Float = 0F, author: Author): CourseEntity {
+fun FavouriteCourseEntity.toCourseEntity(): CourseEntity {
     return CourseEntity(
-        courseId = id,
+        courseId = courseId,
         title = title,
         description = description,
         cover = cover,
@@ -27,17 +25,17 @@ fun CourseDto.toCourseEntity(rating: Float = 0F, author: Author): CourseEntity {
         beginDate = beginDate,
         updateDate = updateDate,
         continueUrl = continueUrl,
-        authorId = author.id,
-        authorName = author.fullName,
-        authorImage = author.avatar,
-        reviewSummary = rating.roundRating(), // round 'till one sign after point
+        authorId = authorId,
+        authorName = authorName,
+        authorImage = authorImage,
+        reviewSummary = reviewSummary,
         price = price
     )
 }
 
-fun CourseEntity.toCourseDto(): CourseDto {
-    return CourseDto(
-        id = courseId,
+fun CourseEntity.toFavouriteCourseEntity(): FavouriteCourseEntity {
+    return FavouriteCourseEntity(
+        courseId = courseId,
         title = title,
         description = description,
         cover = cover,
@@ -50,13 +48,15 @@ fun CourseEntity.toCourseDto(): CourseDto {
         beginDate = beginDate,
         updateDate = updateDate,
         continueUrl = continueUrl,
-        authors = authorId?.let { listOf(it) } ,
-        reviewSummary = reviewSummary.toLong(),
+        authorId = authorId,
+        authorName = authorName,
+        authorImage = authorImage,
+        reviewSummary = reviewSummary,
         price = price
     )
 }
 
-fun CourseEntity.toCourse(): Course {
+fun FavouriteCourseEntity.toCourse(): Course {
     return Course(
         id = courseId,
         title = title,
@@ -79,8 +79,8 @@ fun CourseEntity.toCourse(): Course {
     )
 }
 
-fun Course.toCourseEntity(): CourseEntity {
-    return CourseEntity(
+fun Course.toFavouriteCourseEntity(): FavouriteCourseEntity {
+    return FavouriteCourseEntity(
         courseId = id,
         title = title,
         description = description,

@@ -1,7 +1,6 @@
 package com.devautro.coursesapp.feature_account.presentation.adapter
 
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,7 +58,6 @@ class AccountAdapter(
             .append(lessonsString)
         val progressInt = ((courseCard.completedLessons.toDouble() / courseCard.totalLessons.toDouble()) * 100).roundToInt()
         val progress = "$progressInt%"
-        Log.d("MyLog", "Progress: $progressInt")
 
         with(holder.binding) {
             favouritesButton.tag = courseCard
@@ -72,12 +70,11 @@ class AccountAdapter(
             progressBar.progress = progressInt
             favouritesButton.setImageResource(favouriteIcon)
 
-//          MAYBE DIFFERENT IMAGE LOAD -> FIND OUT HOW TO CACHE IT !!! -->
             if (courseCard.image.isNotBlank()) {
                 Glide.with(courseImage.context)
                     .load(courseCard.image)
                     .circleCrop()
-                    .placeholder(R.drawable.search_icon) // define placeholder for zero data!!
+                    .placeholder(R.drawable.search_icon)
                     .error(R.drawable.search_icon)
                     .into(courseImage)
             } else {

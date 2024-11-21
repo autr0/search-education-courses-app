@@ -19,17 +19,6 @@ interface StepickApi {
         @Query("ids") ids: List<Long>
     ): CourseReviewSummariesResponse
 
-//    @GET("courses")
-//    suspend fun getCoursesWithIds(
-//        @Query("ids") ids: List<Long>
-//    ): CourseResponse
-//
-//    @GET("course-lists")
-//    suspend fun getCoursesLists(
-//        @Query("page") page: Int
-//    ): CourseListsResponse
-
-
     @GET("users")
     suspend fun getAuthorsById(
         @Query("ids[]") ids: List<Long>

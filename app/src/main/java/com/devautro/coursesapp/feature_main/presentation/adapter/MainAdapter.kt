@@ -45,7 +45,7 @@ class MainAdapter(
         val course = getItem(position)
 
         course?.let {
-            val favouriteIcon = if (course.isFavorite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
+            val favouriteIcon = if (course.isFavourite) R.drawable.favourite_filled_icon else R.drawable.favourites_tab
             with(holder.binding) {
                 favouritesButton.tag = course
                 courseMore.tag = course
